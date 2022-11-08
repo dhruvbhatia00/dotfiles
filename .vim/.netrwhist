@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/Users/dhruvbhatia/Desktop/repos/dotfiles/.git'
+let g:netrw_dirhist_5='/Users/dhruvbhatia/Desktop/repos/dotfiles/.git/hooks'
+let g:netrw_dirhist_4='/Users/dhruvbhatia/Desktop/repos/dotfiles/.git'
+let g:netrw_dirhist_3='/Users/dhruvbhatia/Desktop/repos/dotfiles/.git/branches'
+let g:netrw_dirhist_2='/Users/dhruvbhatia/Desktop/repos/dotfiles/.git'
+let g:netrw_dirhist_1='/Users/dhruvbhatia/Desktop/repos/dotfiles'
+let g:netrw_dirhist_0='/Users/dhruvbhatia/Desktop/repos'
+let g:netrw_dirhist_9='/Users/dhruvbhatia/Desktop/repos/dotfiles'
+let g:netrw_dirhist_8='/Users/dhruvbhatia/Desktop/projects/latex/algtop/l14'
+let g:netrw_dirhist_7='/Users/dhruvbhatia/Desktop/projects/latex/algtop'
