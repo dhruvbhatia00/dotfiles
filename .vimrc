@@ -113,8 +113,9 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+set breakindent " indent with wrapping
 
-" turn hybrid line numbers on
+"turn hybrid line numbers on
 :set number relativenumber
 :set nu rnu
 
@@ -180,6 +181,15 @@ augroup end
 "}}}
 
 " Helper Functions {{{
+function! s:TexFocusVim() abort
+    silent execute "!open -a iTerm"
+    redraw!
+endfunction
+
+augroup cimtex_event_focus
+    au!
+    au User VimtexEventViewReverse call s:TexFocusVim()
+augroup END
 "}}}
 
 " VimPlug {{{
@@ -198,17 +208,18 @@ Plug 'lervag/vimtex'
     let &rtp .= ',~/.vim/plugged/vimtex/after'
     filetype plugin indent on
     syntax enable
-    let g:vimtex_latexmk_continuous=0
-    let g:tex_flavor='latex'
-    let g:Tex_DefaultTargetFormat='pdf'
+"    let g:vimtex_syntax_conceal=1
+"    let g:vimtex_latexmk_continuous=0
+    let g:tex_flavor='lualatex'
+"    let g:Tex_DefaultTargetFormat='pdf'
     let g:vimtex_view_enabled=1
-    let g:vimtex_view_automatic=1
-    let g:vimtex_view_general_viewer='zathura'
-    let g:vimtex_view_method='zathura'
+"    let g:vimtex_view_automatic=1
+"    let g:vimtex_view_general_viewer='skim'
+    let g:vimtex_view_method='skim'
     let g:vimtex_quickfix_mode=0
-    let g:vimtex_compiler_latexmk = {
-      \  'callback' : 0,
-      \}
+"    let g:vimtex_compiler_latexmk = {
+"      \  'callback' : 0,
+"      \}
 
 Plug 'joshdick/onedark.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -256,12 +267,18 @@ nmap <D-k> mz:m-2<cr>`z
 vmap <D-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <D-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
+let $MYVIMRC="~/.vimrc"
 nnoremap <leader>ev :vsp $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 nnoremap <leader>es :vsp /Users/dhruvbhatia/.vim/UltiSnips/tex.snippets<cr>
-nnoremap <leader>z :silent exec '!zathura %:r.pdf & disown'<cr>:redraw!<cr>
+nnoremap <leader>ep :vsp /Users/dhruvbhatia/Desktop/projects/latex/templates/hw-shortcuts.sty<cr>
 nnoremap <leader>r :redraw!<cr>
+nnoremap <leader>o :silent exec '!open -a skim %:r.pdf'<cr> :redraw!<cr>
 
 inoremap <C-f> <Esc>: silent exec '.!inkscape-figures create "'.getline('.').'" "'.b:vimtex.root.'/figures/"'<CR><CR>:w<CR>
 nnoremap <C-f> : silent exec '!inkscape-figures edit "'.b:vimtex.root.'/figures/" > /dev/null 2>&1 &'<CR><CR>:redraw!<CR>
+
+"only for use while updating your CV
+noremap <leader>m :make cv.pdf -C ~/Desktop/projects/latex/Awesome-CV <cr>
 "}}}
+

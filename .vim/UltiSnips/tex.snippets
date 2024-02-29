@@ -13,7 +13,7 @@ snippet template "Basic template" b
 
 \newcommand{\firstname}{${1:Dhruv}}
 \newcommand{\lastname}{${2:Bhatia}}
-\newcommand{\email}{${3:dhruvbhatia00@gmail.com}}
+\newcommand{\email}{${3:dbhatia1@uw.edu}}
 \newcommand{\course}{$5}
 \newcommand{\type}{${6:Homework}}
 \newcommand{\num}{${7:1}}
@@ -29,6 +29,7 @@ snippet template "Basic template" b
 \usepackage{subcaption}
 \usepackage{xcolor}
 \usepackage{amsfonts, amsmath, amsthm, amssymb}
+\usepackage[]{mathtools}
 \usepackage{pgfplots}
 \usepackage{ytableau}
 %\usepackage{gensymb}
@@ -37,19 +38,20 @@ snippet template "Basic template" b
     linkcolor=black,
     citecolor=black,
 urlcolor=blue,}
-\usepackage{times}
+\usepackage{mathpazo}
 \usepackage{fancyhdr}
 \usepackage{ifthen}
+\usepackage{darkmode}
 \usepackage{/Users/dhruvbhatia/Desktop/projects/latex/templates/hw-shortcuts}
 
-\lhead{\firstname \hspace{0.1em} \lastname \\ \texttt{\email}}
+\lhead{\firstname \hspace{0.1em} \lastname \\\ \texttt{\email}}
 \ifthenelse{\equal{\type}{}}
     {\title{\course}
-    \rhead{\today \\ \course}}
+    \rhead{\today \\\ \course}}
     {\title{\course \hspace{0.1em} -- \type \hspace{0.1em} \num}
-    \rhead{\today \\ \course \hspace{0.1em} -- \type \hspace{0.1em} \num}}
+    \rhead{\today \\\ \course \hspace{0.1em} -- \type \hspace{0.1em} \num}}
 \author{\firstname \hspace{0.1em} \lastname}
-\pagestyle{fancy plain}
+\pagestyle{fancy}
 
 
 \let\origtitle\maketitle
@@ -106,6 +108,8 @@ urlcolor=blue,}
 \newtheorem*{Ans}{Ans}
 
 \usepackage[many]{tcolorbox}
+\pgfplotsset{compat=1.18}
+%\enabledarkmode
 
 
 \begin{document}
@@ -140,9 +144,9 @@ endsnippet
 snippet fig "Figure environment" b
 \begin{figure}[${1:htpb}]
     \centering
-    ${2:\includegraphics[width=0.8\textwidth]{$3}}
-    \caption{${4:$3}}
-    \label{fig:${5:${3/\W+/-/g}}}
+    \includegraphics[width=0.8\textwidth]{$2}
+    \caption{\centering $3}
+    \label{fig:$4}
 \end{figure}
 endsnippet
 
@@ -154,7 +158,7 @@ snippet tikzcd "Commutative diagrams" bA
 endsnippet
 
 snippet enum "Enumerate" bA
-\begin{enumerate}
+\begin{enumerate}[label=${1:\alph}*)]
     \item $0
 \end{enumerate}
 endsnippet
@@ -175,6 +179,10 @@ snippet pac "Package" b
 \usepackage[${1:options}]{${2:package}}$0
 endsnippet
 
+snippet wlog "wlog" iA
+without loss of generality
+endsnippet
+
 snippet => "implies" Ai
 \implies
 endsnippet
@@ -184,7 +192,7 @@ snippet =< "implied by" Ai
 endsnippet
 
 context "math()"
-snippet iff "iff" Ai
+snippet iff "iff" iA
 \iff
 endsnippet
 
@@ -241,6 +249,16 @@ snip.rv = stripped[0:i] + "\\frac{" + stripped[i+1:-1] + "}"
 endsnippet
 
 context "math()"
+snippet restr "function retriction" iA
+\restr{$1}{$2}$0
+endsnippet
+
+context "math()"
+snippet hash "hash operator" iA
+\hash
+endsnippet
+
+context "math()"
 snippet '([A-Za-z])(\d)' "auto subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
@@ -271,6 +289,10 @@ snippet == "equals" iA
 &= $1 \\\\
 endsnippet
 
+snippet neq "neq" iA
+\neq
+endsnippet
+
 snippet != "equals" iA
 \neq 
 endsnippet
@@ -282,7 +304,7 @@ endsnippet
 
 context "math()"
 snippet floor "floor" iA
-\left\lfloor ${1:${VISUAL}} right\rfloor$0
+\left\lfloor ${1:${VISUAL}} \right\rfloor$0
 endsnippet
 
 snippet pmat "pmat" iA
@@ -325,6 +347,11 @@ endsnippet
 context "math()"
 snippet lra "leftangle rightangle" iA
 \left<${1:${VISUAL}} \right>$0
+endsnippet
+
+context "math()"
+snippet \tot "textarrow" iA
+\xrightarrow[$1]{$2}$0
 endsnippet
 
 context "math()"
@@ -393,8 +420,16 @@ snippet rij "mrij" i
 (${1:x}_${2:n})_{${3:$2}\\in${4:\\N}}$0
 endsnippet
 
+snippet leq "leq" iA
+\leq
+endsnippet
+
 snippet <= "leq" iA
 \le 
+endsnippet
+
+snippet geq "geq" iA
+\geq
 endsnippet
 
 snippet >= "geq" iA
@@ -412,6 +447,16 @@ snippet AA "forall" iA
 endsnippet
 
 context "math()"
+snippet aff "affine" iA
+\mathbb{A}^{$0}
+endsnippet
+
+context "math()"
+snippet PP "proj" iA
+\mathbb{P}^{$0}
+endsnippet
+
+context "math()"
 snippet xnn "xn" iA
 x_{n}
 endsnippet
@@ -420,7 +465,6 @@ context "math()"
 snippet ynn "yn" iA
 y_{n}
 endsnippet
-
 
 context "math()"
 snippet xii "xi" iA
@@ -533,6 +577,11 @@ snippet -> "to" iA
 \to 
 endsnippet
 
+context "math()"
+snippet dash "dashrightarrow" iA
+\dashto
+endsnippet
+
 priority 200
 context "math()"
 snippet <-> "leftrightarrow" iA
@@ -574,19 +623,24 @@ endsnippet
 
 context "math()"
 snippet set "set" wA
-\\{$1\\} $0
+\\{$1\\}$0
 endsnippet
 
 snippet || "mid" iA
  \mid 
 endsnippet
 
+context "math()"
+snippet contains "supset" iA
+\supseteq
+endsnippet
 
 context "math()"
 snippet cc "subset" Ai
 \subseteq 
 endsnippet
 
+context "math()"
 snippet notin "not in " iA
 \not\in 
 endsnippet
@@ -613,6 +667,11 @@ snippet scup "sqcup" iA
 \sqcup
 endsnippet
 
+context "math()"
+snippet bqcup "bigsqcup" iA
+\bigsqcup
+endsnippet
+
 snippet uuu "bigcup" iA
 \bigcup_{${1:i \in ${2: I}}} $0
 endsnippet
@@ -621,12 +680,16 @@ snippet nnn "bigcap" iA
 \bigcap_{${1:i \in ${2: I}}} $0
 endsnippet
 
-snippet OO "emptyset" iA
+snippet OO "structure sheaf" iA
 \O
 endsnippet
 
 snippet RR "real" iA
 \R
+endsnippet
+
+snippet BB "ball" iA
+\B
 endsnippet
 
 snippet PP "projective" iA
@@ -643,7 +706,7 @@ endsnippet
 
 context "math()"
 snippet CC "C" iA
-\mathbb{C}
+\C
 endsnippet
 
 snippet <! "normal" iA
@@ -712,6 +775,11 @@ snippet "([a-zA-Z])hat" "hat" riA
 endsnippet
 
 context "math()"
+snippet tilde "tilde" iA
+\tilde{$1}$0
+endsnippet
+
+context "math()"
 snippet "dot" "dot" riA
 \dot{$1}$0
 endsnippet
@@ -739,6 +807,170 @@ endsnippet
 
 snippet today "Date"
 `date +%F`
+endsnippet
+
+snippet invoice "template"
+\documentclass[
+	a4paper, % Paper size, use 'a4paper' for A4 or 'letterpaper' for US letter
+	10pt, % Default font size, available sizes are: 8pt, 9pt, 10pt, 11pt, 12pt, 14pt, 17pt and 20pt
+]{/Users/dhruvbhatia/Desktop/projects/latex/templates/CSMinimalInvoice}
+
+%---------------------------------------------------------------------------------
+%	INVOICE SETTINGS
+%---------------------------------------------------------------------------------
+
+% The tax rate for automatically calculating tax, do one of the following:
+% 1) Leave command empty (i.e. \taxrate{}) for no tax and no before tax and total tax lines at the bottom of the invoice
+% 2) Enter 0 (i.e. \taxrate{0}) for no tax but before tax and total tax lines explicitly saying 0% tax are output at the bottom of the invoice
+% 3) Enter a whole number (with or without a decimal) to calculate tax and output before tax and total tax lines at the bottom of the invoice, e.g. \taxrate{10} = 10% tax and \taxrate{15.5} = 15.5% tax
+\taxrate{}
+
+% The currency code (e.g. USD is United States Dollars), do one of the following:
+% 1) Enter a 3 letter code to have it appear at the bottom of the invoice
+% 2) Leave the command empty (i.e. \currencycode{}) if you don't want the code to appear on the invoice
+\currencycode{USD}
+
+% The default currency symbol for the invoice is the dollar sign, if you would like to change this, do one of the following:
+% 1) Uncomment the line below and enter one of the following currency codes to change it to the corresponding symbol for that currency: GBP, CNY, JPY, EUR, BRL or INR
+%\determinecurrencysymbol{GBP}
+% 2) Uncomment the line below and leave it blank for no currency symbol or use another character/symbol for your currency
+%\renewcommand{\currencysymbol}{}
+
+% The invoice number, do one of the following:
+% 1) Enter an invoice number, it may include any text you'd like such as '13-A'
+% 2) Leave command empty (i.e. \invoicenumber{}) and no invoice number will be output in the invoice
+\invoicenumber{${1:1}}
+
+%---------------------------------------------------------------------------------
+%	ADVANCED INVOICE SETTINGS
+%---------------------------------------------------------------------------------
+
+\roundcurrencytodecimals{2} % The number of decimal places to round currency numbers
+\roundquantitytodecimals{2} % The number of decimal places to round quantity numbers
+
+% Advanced settings for changing how numbers are output
+\sisetup{group-minimum-digits=4} % Delimit numbers (e.g. 4000 -> 4,000) when there are this number of digits or more
+\sisetup{group-separator={,}} % Character to use for delimiting digit groups
+\sisetup{output-decimal-marker={.}} % Character to use for specifying decimals
+
+\currencysuffix{} % Some currencies output the currency symbol after the number, such as Sweden's krona specified with a 'kr' suffix. Specify a suffix here if required, otherwise leave this command empty.
+
+%---------------------------------------------------------------------------------
+
+\begin{document}
+
+\setstretch{1.2} % Increase line spacing
+
+%---------------------------------------------------------------------------------
+%	INVOICE HEADER
+%---------------------------------------------------------------------------------
+
+\outputheader{Invoice}{${2:\today}} % Output the invoice title (automatically all caps) and date (can be empty if not needed)
+
+%---------------------------------------------------------------------------------
+%	INVOICE AND PAYER INFORMATION
+%---------------------------------------------------------------------------------
+
+\outputinvoicenum % Output the invoice number if one has been set
+
+% Invoice information section
+\begin{minipage}[t]{0.38\textwidth}
+	\textbf{Due:} ${3:\duedatedays{7}} % Use the \duedatedays{<number>} command to automatically determine the date when the invoice is due using the number of days from today in the single parameter to the command, or remove it and enter a due date manually
+	
+	\textbf{Project:} Math Tutoring % Project name
+	
+	\textbf{Description:} Zoom tutoring in $4 
+\end{minipage}
+% Fixed minimum horizontal whitespace between sections
+\begin{minipage}[t]{0.03\textwidth}
+	~ % Populate the minipage with a dummy space so it is spaced correctly
+\end{minipage}
+% Payee information section
+\begin{minipage}[t]{0.56\textwidth}
+	\textbf{${5:Dhruv Bhatia}} \\\ % Payer name 
+	\href{mailto:${6:dbhatia1@uw.edu}}{Email: $6} \\\ % Payer email
+    Phone: $7
+\end{minipage}
+
+%---------------------------------------------------------------------------------
+
+\setstretch{1} % Restore single line spacing
+
+\vfill % Vertical alignment whitespace
+
+%---------------------------------------------------------------------------------
+%	INVOICE ITEMS TABLE
+%---------------------------------------------------------------------------------
+
+% Use the \invoiceitem command to output invoice items. It requires 4 parameters described below:
+% 1) Item description; this should be kept reasonably short so as not to span too many lines
+% 2) Item quantity (or hours); this should be a positive number (with no commas or other symbols) and decimals are allowed
+% 3) Item unit price (or hourly rate); this should be a positive or negative number (with no commas or other symbols) and decimals are allowed
+% 4) Item note; this can be left empty but, if used, it should be kept very short
+
+\begin{invoicetable}
+	\invoiceitem{Session on $0}{1}{100}{}
+\end{invoicetable}
+
+%---------------------------------------------------------------------------------
+
+\vfill\vfill % Vertical alignment whitespace
+
+%---------------------------------------------------------------------------------
+%	INVOICE CONDITIONS
+%---------------------------------------------------------------------------------
+
+\invoiceconditions{} % Leave command empty (i.e. \invoiceconditions{}) if not required
+
+%---------------------------------------------------------------------------------
+%	MERCHANT (YOUR) INFORMATION
+%---------------------------------------------------------------------------------
+
+% Company/individual name and address section
+\begin{minipage}[t]{0.3\textwidth}
+	\itshape % Italic text
+	
+	\textbf{Dhruv Bhatia} % Company/individual name
+	
+	5000 25th Ave NE \\\ % Merchant address lines
+    Apt 6202-C \\\
+	Seattle, WA 98105 \\\
+	United States \\\
+\end{minipage}
+% Fixed minimum horizontal whitespace between sections
+\begin{minipage}[t]{0.03\textwidth}
+	~ % Populate the minipage with a dummy space so it is spaced correctly
+\end{minipage}
+% Merchant contact information section
+\begin{minipage}[t]{0.3\textwidth}
+	\itshape % Italic text
+	
+	\textbf{Contact}
+
+	 % Merchant contact information lines
+	\href{mailto:dbhatia1@uw.edu}{dbhatia1@uw.edu} \\\
+    Phone: 401-450-8617
+
+\end{minipage}
+% Fixed minimum horizontal whitespace between sections
+\begin{minipage}[t]{0.03\textwidth}
+	~ % Populate the minipage with a dummy space so it is spaced correctly
+\end{minipage}
+% Merchant payment information
+\begin{minipage}[t]{0.3\textwidth}
+	\itshape % Italic text
+	
+	\textbf{Payment}
+	
+	Bank of America \\\ % Payment information lines
+	Routing \#: 011500010 \\\
+	Account \#: 394008815233 \\\
+\end{minipage}
+
+%---------------------------------------------------------------------------------
+
+\end{document}
+
 endsnippet
 
 # vim:ft=snippets
